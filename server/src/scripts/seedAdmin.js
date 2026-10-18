@@ -15,5 +15,11 @@ try {
     await createAccount({ name: process.env.ADMIN_NAME || 'Campus Administrator', email, password: process.env.ADMIN_PASSWORD }, 'admin');
     console.log('Admin created. Use the credentials in your local server/.env.');
   }
-} catch (error) { console.error('Seed failed; check admin configuration and database availability.', error.status === 400 ? error.message : error.name, error.code || ''); process.exitCode = 1; }
+} catch (error) {
+  const detail = error.name === 'ValidationError'
+    ? Object.keys(error.errors).join(', ')
+    : error.status === 400 ? error.message : error.name;
+  console.error('Seed failed; check admin configuration and database availability.', detail, error.code || '');
+  process.exitCode = 1;
+}
 finally { await mongoose.disconnect(); }
