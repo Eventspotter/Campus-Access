@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Campus Access crest">
-  <rect width="64" height="64" rx="13" fill="#35203f"/>
-  <path d="M32 7 52 14v16c0 14-8 23-20 28C20 53 12 44 12 30V14L32 7Z" fill="#4a285e" stroke="#dfbf78" stroke-width="2"/>
-  <path d="m20 28 12-9 12 9H20Z" fill="#dfbf78"/>
-  <path d="M22 32h20M24 45h16M26 32v13m6-13v13m6-13v13" fill="none" stroke="#f4f0e6" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M19 49h26" stroke="#dfbf78" stroke-width="2" stroke-linecap="round"/>
-</svg>
