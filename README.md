@@ -144,6 +144,12 @@ The backend requires `JWT_SECRET`, `APP_ORIGIN`, and `MONGODB_URI` at startup. A
 
 Run `npm test` from `server/` for API smoke checks and `npm run build` from `client/` for the production frontend build. Run `npm audit` in each directory to check both dependency trees.
 
+### Render deployment
+
+The repository's `render.yaml` defines one free web service that builds the React client, serves it from Express, and runs the initial admin seed on startup. In Render, create a Blueprint from this GitHub repository and choose the intended workspace. Supply `MONGODB_URI`, `ADMIN_EMAIL`, and a unique `ADMIN_PASSWORD` in Render's private setup fields. Render generates `JWT_SECRET` and sets `APP_ORIGIN` to the service's own HTTPS URL. Render supplies `NODE_ENV=production` at runtime. Do not copy the local development `.env` into Render.
+
+Use a MongoDB Atlas database reachable from Render and confirm Atlas network access before applying the Blueprint. The first deployment is complete only after `/api/health` and the login page respond and the admin account can sign in. Render's free web service may spin down when idle; consult Render's current free-plan limits before using it for a production audience.
+
 ---
 
 ## 6. API Endpoints Contract
