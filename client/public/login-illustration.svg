@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 290" role="img" aria-label="Illustration of a campus account on a laptop">
+  <circle cx="180" cy="145" r="105" fill="#f1e9da"/>
+  <circle cx="52" cy="85" r="5" fill="none" stroke="#dfbf78" stroke-width="2"/>
+  <circle cx="305" cy="222" r="3" fill="none" stroke="#dfbf78" stroke-width="2"/>
+  <path d="m68 226 6-9 6 9zM286 80l8 5-8 5z" fill="none" stroke="#dfbf78" stroke-width="2"/>
+  <rect x="251" y="42" width="6" height="6" fill="none" stroke="#d8dce1"/>
+  <rect x="112" y="101" width="136" height="99" rx="5" fill="#35203f"/>
+  <rect x="119" y="108" width="122" height="84" fill="#584567"/>
+  <circle cx="180" cy="139" r="12" fill="none" stroke="#dfbf78" stroke-width="2"/>
+  <path d="M157 172c1-14 9-21 23-21s22 7 23 21z" fill="none" stroke="#dfbf78" stroke-width="2"/>
+  <path d="M98 201h164l-11 10H109z" fill="#d4d9dd"/>
+  <path d="M98 201h164l-4 4H102z" fill="#edf0f2"/>
+</svg>
