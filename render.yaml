@@ -29,7 +29,7 @@ services:
       - key: MONGODB_PASSWORD
         sync: false
       - key: ADMIN_NAME
-        value: Administrator
+        value: Campus Administrator
       - key: ADMIN_EMAIL
         sync: false
       - key: ADMIN_PASSWORD
