@@ -6,6 +6,8 @@ import authRoutes from './routes/auth.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 import profileRoutes from './routes/profile.routes.js';
 import { errorHandler } from './middleware/error.middleware.js';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const app = express();
 
@@ -52,6 +54,15 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/profile', profileRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+  const clientDist = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../client/dist');
+  app.use(express.static(clientDist));
+  app.use((req, res, next) => {
+    if (req.method !== 'GET' || req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+}
 
 app.use((req, res) => res.status(404).json({ message: 'This endpoint does not exist.' }));
 app.use(errorHandler);

@@ -140,7 +140,7 @@ project/
 | `ADMIN_EMAIL` | Initial admin email used by `npm run seed` | Set your own |
 | `ADMIN_PASSWORD` | Initial admin password used by `npm run seed` | Set a unique password |
 
-The backend requires `JWT_SECRET`, `APP_ORIGIN`, and `MONGODB_URI` at startup. A missing or placeholder secret causes a configuration error before MongoDB is contacted. The frontend uses relative `/api` paths: for production, serve it and the API on one origin or configure a reverse proxy for `/api`. Do not deploy the Vite development server as the production frontend.
+The backend requires `JWT_SECRET`, `APP_ORIGIN`, and `MONGODB_URI` at startup. A missing or placeholder secret causes a configuration error before MongoDB is contacted. The frontend uses relative `/api` paths. With `NODE_ENV=production`, Express serves the built `client/dist` frontend and API on one origin. Set `APP_ORIGIN` to that public origin (for example, `https://your-service.example`) and `HOST=0.0.0.0` on the host. Build with `npm ci --prefix server`, `npm ci --prefix client`, and `npm run build --prefix client` from the repository root, then start with `npm start --prefix server`. Do not deploy the Vite development server as the production frontend.
 
 Run `npm test` from `server/` for API smoke checks and `npm run build` from `client/` for the production frontend build. Run `npm audit` in each directory to check both dependency trees.
 
