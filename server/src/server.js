@@ -12,7 +12,8 @@ try {
     throw new Error('Set a random MFA_ENCRYPTION_KEY of 64 hexadecimal characters in server/.env.');
   }
   await connectDB();
-  const server = app.listen(process.env.PORT || 4000, '127.0.0.1', () => console.log(`API ready on http://localhost:${process.env.PORT || 4000}`));
+  const host = process.env.RENDER ? '0.0.0.0' : '127.0.0.1';
+  const server = app.listen(process.env.PORT || 4000, host, () => console.log(`API ready on http://${host}:${process.env.PORT || 4000}`));
   server.on('error', error => { console.error('Server failed:', error.name, error.code || ''); process.exit(1); });
   for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => {
     server.close(async () => { await mongoose.disconnect(); process.exit(0); });
