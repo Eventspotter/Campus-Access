@@ -8,8 +8,8 @@ try {
     throw new Error('Set a random JWT_SECRET of at least 32 characters in server/.env.');
   }
   if (!process.env.APP_ORIGIN) throw new Error('APP_ORIGIN is required.');
-  if (!/^[a-f\d]{64}$/i.test(process.env.MFA_ENCRYPTION_KEY || '')) {
-    throw new Error('Set a random MFA_ENCRYPTION_KEY of 64 hexadecimal characters in server/.env.');
+  if (process.env.MFA_ENCRYPTION_KEY && !/^[a-f\d]{64}$/i.test(process.env.MFA_ENCRYPTION_KEY)) {
+    throw new Error('MFA_ENCRYPTION_KEY must be 64 hexadecimal characters when provided.');
   }
   await connectDB();
   const host = process.env.RENDER ? '0.0.0.0' : '127.0.0.1';
@@ -22,7 +22,7 @@ try {
   const configurationMessages = new Set([
     'Set a random JWT_SECRET of at least 32 characters in server/.env.',
     'APP_ORIGIN is required.',
-    'Set a random MFA_ENCRYPTION_KEY of 64 hexadecimal characters in server/.env.',
+    'MFA_ENCRYPTION_KEY must be 64 hexadecimal characters when provided.',
     'MONGODB_URI is required. Configure server/.env.',
     'MONGODB_USER is required when MONGODB_PASSWORD is set.',
   ]);

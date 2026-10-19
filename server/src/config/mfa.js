@@ -1,11 +1,15 @@
-import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto';
+import { createCipheriv, createDecipheriv, createHash, hkdfSync, randomBytes } from 'node:crypto';
 import { generateSecret, generateURI, verify } from 'otplib';
 import User from '../models/User.js';
 
 function key() {
   const value = process.env.MFA_ENCRYPTION_KEY;
-  if (!/^[a-f\d]{64}$/i.test(value || '')) throw new Error('MFA_ENCRYPTION_KEY must be 64 hexadecimal characters.');
-  return Buffer.from(value, 'hex');
+  if (value) {
+    if (!/^[a-f\d]{64}$/i.test(value)) throw new Error('MFA_ENCRYPTION_KEY must be 64 hexadecimal characters.');
+    return Buffer.from(value, 'hex');
+  }
+  if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) throw new Error('JWT_SECRET is required for MFA encryption.');
+  return Buffer.from(hkdfSync('sha256', process.env.JWT_SECRET, 'campus-access-mfa', 'encryption-v1', 32));
 }
 
 export function encryptSecret(secret) {
