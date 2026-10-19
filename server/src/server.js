@@ -18,4 +18,15 @@ try {
   for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => {
     server.close(async () => { await mongoose.disconnect(); process.exit(0); });
   });
-} catch (error) { console.error('Startup failed; check server configuration and database availability.', error.name, error.code || ''); process.exit(1); }
+} catch (error) {
+  const configurationMessages = new Set([
+    'Set a random JWT_SECRET of at least 32 characters in server/.env.',
+    'APP_ORIGIN is required.',
+    'Set a random MFA_ENCRYPTION_KEY of 64 hexadecimal characters in server/.env.',
+    'MONGODB_URI is required. Configure server/.env.',
+    'MONGODB_USER is required when MONGODB_PASSWORD is set.',
+  ]);
+  if (configurationMessages.has(error.message)) console.error('Startup configuration error:', error.message);
+  else console.error('Startup failed; check server configuration and database availability.', error.name, error.code || '');
+  process.exit(1);
+}
